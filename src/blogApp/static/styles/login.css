@@ -1,0 +1,32 @@
+.container{
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container_left{
+  flex: 3;
+}
+
+.container_left img{
+  margin: 20px 0 0 20px;
+  position: fixed;
+  transform: translateY(0%);
+  width: 60%;
+  height: 80vh;
+  text-align: center;
+  align-items: center;
+}
+
+.recover{
+  color: grey;
+  text-decoration: none;
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1380px){
+  .container_left{
+    display: none;
+  }
+}

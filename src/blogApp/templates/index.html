@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>BlogApp</title>
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static "styles/style.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block css %}
+
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="/"><img src="{% static "images/logo.png" %}" alt="Logo image"/></a>
+      </div>
+      <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Posts</a></li>
+        <li><a href="{% url 'categories' %}">Categories</a></li>
+        <li><a href="#">Recent</a></li>
+        <li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+      </ul>
+      {% if user.is_authenticated %}
+      <ul id="log" class="nav-login">
+        {%  if user.profile.profile_picture %}
+        <li class="prof_pic"><img src="{{user.profile.profile_picture.url}}"></i></li>
+        {% endif %}
+        <li><a href="{% url 'profile' user=user.username %}">{{ user.username }}</a></li>
+
+        <div class="dropdown-content">
+
+          {% if user.is_superuser %}
+          <div class="dropdown-item">
+            <i class="fa fa-bug" aria-hidden="true"></i>
+            <a href="/admin">Admin panel</a>
+          </div>
+          {% endif %}
+
+          <div class="dropdown-item">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <a href="{% url 'profile' user=user.username %}">Profile</a>
+          </div>
+
+          {% if user.profile.author %}
+          <div class="dropdown-item">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            <a href="{% url 'article_create' %}">New article</a>
+          </div>
+          {% endif %}
+
+          <div class="dropdown-item">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+
+        </div>
+      </ul>
+      {% else %}
+      <ul class="nav-login">
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'signup' %}">Join</a></li>
+      </ul>
+      {% endif %}
+      <ul class="nav-icons">
+        <li><a href="https://github.com"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+      </ul>
+    </nav>
+    {% block head %}
+
+    {% endblock %}
+
+
+    {% block content %}
+
+    {% endblock %}
+    <script src="{% static "javascript/navbar.js" %}"></script>
+    {% block script %}
+
+    {% endblock %}
+  </body>
+</html>

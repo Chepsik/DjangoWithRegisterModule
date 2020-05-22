@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/login.css" %}">
+<link rel="stylesheet" href="{% static "styles/form.css" %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="login-container">
+      <img src="{% static "images/login/register_pic.svg" %}" alt="">
+      <h2>SIGN UP</h2>
+      <form method="post" novalidate="novalidate" autocomplete="off">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+          {{ form.username.errors }}
+          <div class="fieldWrapper">
+            <div class="ico">
+              <i class="fa fa-user fa"></i>
+            </div>
+            <div class="input-field">
+              <h5>Username</h5>
+              <label for="{{ form.username.id_for_label }}"></label>
+              <!--{{ form.username.errors }}-->
+              {{ form.username }}
+            </div>
+          </div>
+
+          {{ form.email.errors }}
+          <div class="fieldWrapper">
+            <div class="ico">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div>
+            <div class="input-field">
+              <h5>Email</h5>
+              <label for="{{ form.email.id_for_label }}"></label>
+              <!--{{ form.password.errors }}-->
+              {{ form.email }}
+            </div>
+          </div>
+
+          {{ form.password1.errors }}
+          <div class="fieldWrapper">
+            <div class="ico">
+              <i class="fa fa-lock fa"></i>
+            </div>
+            <div class="input-field">
+              <h5>Password</h5>
+              <label for="{{ form.password1.id_for_label }}"></label>
+              <!--{{ form.password.errors }}-->
+              {{ form.password1 }}
+            </div>
+          </div>
+
+          {{ form.password2.errors }}
+          <div class="fieldWrapper">
+            <div class="ico">
+              <i class="fa fa-lock fa"></i>
+            </div>
+            <div class="input-field">
+              <h5>Confirm password</h5>
+              <label for="{{ form.password2.id_for_label }}"></label>
+              <!--{{ form.password.errors }}-->
+              {{ form.password2 }}
+            </div>
+          </div>
+
+          <div class=container_bottom>
+            <button type="submit" class="btn">Register</button>
+          </div>
+      </form>
+    </div>
+    <div class="container_left">
+        <img src="{% static "images/login/register_pic_1.svg" %}" alt="">
+    </div>
+  </div>
+{% endblock %}

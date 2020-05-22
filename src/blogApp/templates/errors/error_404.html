@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Error 404{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/login.css" %}">
+<link rel="stylesheet" href="{% static "styles/form.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <div class="login-container">
+    <h2>Ups! Something went wrong!</h2>
+    <h3>Page not found!</h3>
+  </div>
+
+  <div class="container_left">
+      <img src="{% static "images/errors/error_404.svg" %}" alt="">
+  </div>
+
+</div>
+{% endblock %}

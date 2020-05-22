@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/login.css" %}">
+<link rel="stylesheet" href="{% static "styles/form.css" %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="container_left">
+      <img src="{% static "images/login/login_pic_1.svg" %}" alt="">
+  </div>
+
+  <div class="login-container">
+    <img src="{% static "images/login/profile_pic.svg" %}" alt="">
+    <h2>WELCOME</h2>
+    <form method="post" novalidate="novalidate" autocomplete="off">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {{ form.username.errors }}
+      <div class="fieldWrapper">
+        <div class="ico">
+          <i class="fa fa-user fa"></i>
+        </div>
+        <div class="input-field">
+          <h5>Username</h5>
+          <label for="{{ form.username.id_for_label }}"></label>
+          <!--{{ form.username.errors }}-->
+          {{ form.username }}
+        </div>
+      </div>
+      {{ form.password.errors }}
+      <div class="fieldWrapper">
+        <div class="ico">
+          <i class="fa fa-lock fa"></i>
+        </div>
+        <div class="input-field">
+          <h5>Password</h5>
+          <label for="{{ form.password.id_for_label }}"></label>
+          <!--{{ form.password.errors }}-->
+          {{ form.password }}
+        </div>
+      </div>
+      <div class=container_bottom>
+        <p><a class="recover" href="#">Forgot password?</a></p>
+        <button class="btn" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static "javascript/login.js" %}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/create_post.css" %}">
+{% endblock %}
+
+{% block title %}Create Article{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <form method="post" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+    <h2>New article</h2>
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+
+    <div class="input-field">
+      <label for="{{ form.username.id_for_label }}"></label>
+      {{ form.title }}
+    </div>
+
+    <div class="input-field">
+      <label for="{{ form.image_on_view.id_for_label }}"></label>
+      {{ form.image_on_view }}
+    </div>
+
+    <div class="input-field">
+      <label for="{{ form.text.id_for_label }}"></label>
+      {{ form.text }}
+    </div>
+
+    <div class="input-field">
+      <label for="{{ form.category.id_for_label }}"></label>
+      {{ form.category }}
+      <label for="{{ form.tags.id_for_label }}"></label>
+      {{ form.tags }}
+    </div>
+
+    {{ form.media }}
+    <button class="btn" type="submit">Send</button>
+  </form>
+</div>
+{% endblock %}

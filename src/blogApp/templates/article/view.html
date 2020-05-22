@@ -1,0 +1,94 @@
+{% extends 'index.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/article_view.css" %}">
+{% endblock %}
+
+{% block head %}
+<div class="view">
+    <section class="profile">
+      {% include 'widgets/profile.html' with userInfo=userProf%}
+      {% block profile %}
+
+      {% endblock %}
+      {% if otherUserPosts %}
+      <div class="user_similar">
+            {% for article in otherUserPosts %}
+            <div class="post">
+              <a href="{% url 'article_view' post_id=article.pk %}">
+              <!-- <img src="{{article.image_on_view.url}}" alt="{{article.title}}"> -->
+              <div class="text">
+                <h3>{{article.title}}</h3>
+                <p>{{article.text | striptags | truncatewords:"10" | safe}}</p>
+              </div>
+              </a>
+            </div>
+            {% endfor %}
+      </div>
+      {% endif %}
+    </section>
+  <article class="article_container">
+    <div class="article_title">
+      <!-- <img src="{{article.image_on_view.url}}" alt="{{article.title}}"> -->
+      <div class="article_subtitle">
+        <h1>{{article.title}}</h1>
+        <a href="#"><h5 style="color: {{article.category.color}}">{{article.category}}</h5></a>
+      </div>
+    </div>
+    <div class="article_text">
+      <p> {{article.text | safe}}</p>
+    </div>
+  </article>
+  <section class="similar">
+    <h1>Related articles</h1>
+    <div class="user_similar">
+      {% for post in recPosts %}
+          <div class="post">
+            <a href="{% url 'article_view' post_id=post.pk %}">
+            <!-- <img src="{{post.image_on_view.url}}" alt="{{post.title}}"> -->
+            <div class="text">
+              <h3>{{post.title}}</h3>
+              <p>{{post.text | striptags | truncatewords:"10" | safe}}</p>
+            </div>
+            </a>
+          </div>
+          {% endfor %}
+    </div>
+  </section>
+</div>
+{% if commentsPost or user.is_authenticated %}
+<section class="comments_container">
+  <div class="comments">
+    <h2>Comments</h2>
+    {% if user.is_authenticated %}
+    <form method="post" novalidate="novalidate" autocomplete="off" enctype="multipart/form-data">
+      <label for="{{ form.text.id_for_label }}"></label>
+      {% csrf_token %}
+      {{form.text}}
+      {{ form.media }}
+      <button class="btn" type="submit">Send</button>
+    </form>
+    {% endif %}
+    {% for comment in commentsPost %}
+    <div class="comment">
+      <div class="head_of_comment">
+        {% if comment.author.profile.first_name %}
+        <h5>{{comment.author.profile.first_name}} {{comment.author.profile.last_name}} </h5>
+        {% else %}
+        <h5>{{comment.author}} </h5>
+        {% endif %}
+        <h5>{{comment.published}} </h5>
+        {% if comment.edited %}
+        <h5>edited</h5>
+        {% endif %}
+      </div>
+      {{comment.text | safe}}
+      <hr>
+    </div>
+    {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

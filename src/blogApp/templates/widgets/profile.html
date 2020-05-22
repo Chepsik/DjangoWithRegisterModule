@@ -1,0 +1,26 @@
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/profile.css" %}">
+{% endblock %}
+
+{% block profile %}
+  <div class="card">
+    {% if userInfo.profile.profile_picture %}
+    <img src="{{userInfo.profile.profile_picture.url}}" alt="{{userInfo.username}}" style="width:100%">
+    {% else %}
+    <img src="{% static "images/login/profile_pic.svg" %}" alt="{{userInfo.username}}" style="width:100%">
+    {% endif %}
+    {% if userInfo.profile.first_name %}
+    <h1>{{userInfo.profile.first_name}} {{userInfo.profile.last_name}}</h1>
+    {% else %}
+    <h1>{{userInfo.username}}</h1>
+    {% endif %}
+    <!-- <p class="title">CEO & Founder, Example</p>
+    <a href="#"><i class="fa fa-dribbble"></i></a>
+    <a href="#"><i class="fa fa-twitter"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-facebook"></i></a> -->
+    <a href="{% url 'profile' user=userInfo.username %}"><p><button>Profile</button></p></a>
+  </div>
+{% endblock %}

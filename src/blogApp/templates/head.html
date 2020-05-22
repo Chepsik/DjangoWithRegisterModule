@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static "styles/head.css" %}">
+{% endblock %}
+
+
+{% block head %}
+<article class='head'>
+  {% for article in recent %}
+  <section>
+    <a href="{% url 'article_view' post_id=article.pk %}">
+      <div class="image">
+        <img src="{{article.image_on_view.url}}" alt="{{article.title}}"/>
+      </div>
+      <div class="text">
+        <h3>{{article.title}}</h3>
+        <!-- <div class="author_slug">
+          <h4>{{article.author.profile.first_name}} {{article.author.profile.last_name}}</h4>
+        </div> -->
+        <!-- <br> -->
+        <p>{{article.text | striptags | truncatewords:"30" | safe}}</p>
+        </a>
+        <ul>
+          <a href="#"><li class='category' style="color: {{article.category.color}};">{{article.category}}</li></a>
+            <!-- <li class='tags'>{% for tag in article.tags.all %}
+            <a href="#">{{ tag.name }},</a>
+          {% endfor %}</li> -->
+        </ul>
+  </section>
+  {% endfor %}
+
+</article>
+{% endblock %}

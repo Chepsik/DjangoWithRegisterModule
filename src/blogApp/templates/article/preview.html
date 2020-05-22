@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}Preview Article{% endblock title %}
+
+{% block content %}
+<h2>Preview of article</h2>
+
+  <p>{{article.title}}</p>
+  <p>{{article.text | safe}}</p>
+  <p>{{article.category}}</p>
+  <p>{{article.author}}</p>
+
+{% endblock %}
